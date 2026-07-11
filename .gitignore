@@ -1,0 +1,24 @@
+# Miljøvariabler (VIGTIGT at ignorere, så API-nøgler ikke lækkes)
+.env
+
+# Python cache og midlertidige filer
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtuelle miljøer
+venv/
+env/
+.venv/
+
+# PyCharm / JetBrains IDE filer
+.idea/
+
+# Lokale vektordatabaser (ChromaDB)
+chroma_db/
+chroma/
+
+data/
+*.pdf
+*.csv
