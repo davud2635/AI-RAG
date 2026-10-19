@@ -15,7 +15,7 @@ def local_ai(documents):
     chunks = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200).split_documents(documents)
 
     # Her bruger jeg AI-modellen (Lokalt via Ollama)
-    llm = OllamaLLM(model="llama3")
+    llm = OllamaLLM(model="llama3.1")
 
     # Omdanner tekst til tal, så AI'en kan finde lignende tekst
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
