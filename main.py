@@ -1,5 +1,5 @@
 from document_reader import read_document
-from rag_engine import lokal_ai
+from rag_engine import local_ai
 
 data_file = "data/karakter.pdf"
 
@@ -10,20 +10,24 @@ if not dokument:
     exit()
 
 
-llm , vector_db = lokal_ai(dokument)
+llm , vector_db = local_ai(dokument)
 
 
 while True:
     user_question = input("Dit spørgsmål: ")
 
-    if user_question.lower() == ["exit", "quit", "afslut"]:
+    if user_question.lower().strip() in ["exit", "quit", "afslut"]:
         print("Afslutter terminalen..")
         break
 
-    print("Tænker  ")
+    print("Tænker...")
 
-    relvant_document = vector_db.similarity_search(user_question, k=12)
+    relevant_documents = vector_db.similarity_search(user_question, k=12)
 
-    prompt = f"Answer only based on the context {relvant_document}. Question: {user_question}"
+    # Udtrækker filnavnene på de dokumenter, AI'en har brugt til sit svar
+    kilder = set([doc.metadata.get('source', 'Ukendt kilde') for doc in relevant_documents])
+    print(f"AI'en baserer sit svar på følgende dokumenter: {kilder}")
+
+    prompt = f"Answer only based on the context {relevant_documents}. Question: {user_question}"
     answer = llm.invoke(prompt)
     print(f"\n {answer}:\n ")
